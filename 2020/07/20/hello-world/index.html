@@ -20,7 +20,7 @@
   
 
   
-    <meta name="description" content="欢迎来到我的博客^_^">
+    <meta name="description" content="————欢迎来到我的博客~————">
   
 
   <!-- feed -->
@@ -318,7 +318,7 @@
   </div>
   
 
-  <div class="l_body">
+  <div class="l_body nocover">
     <div class='body-wrapper' id="pjax-container">
       
         <!--此文件用来存放一些不方便取值的变量-->
@@ -340,16 +340,16 @@
 
 <script>
   // 处理封面 此时 jquery 还没加载
-  if ("blog" == "none") { // 移除封面
+  if ("none" == "none") { // 移除封面
     document.getElementsByClassName('cover')[0].style.display = "none";
     document.getElementsByClassName('l_body')[0].classList.add("nocover");
     document.getElementsByClassName('l_header', 'cover-wrapper')[0].classList.add("show");
   } else {
-    if ("blog" == "blog") { // 半屏
+    if ("none" == "blog") { // 半屏
       document.getElementsByClassName('cover')[0].classList.remove("full");
       document.getElementsByClassName('cover')[0].classList.add("half");
       document.getElementsByClassName('scroll-down')[0].style.display = "none";
-    } else if ("blog" == "docs") { // 全屏
+    } else if ("none" == "docs") { // 全屏
       document.getElementsByClassName('cover')[0].classList.remove("half");
       document.getElementsByClassName('cover')[0].classList.add("full");
       document.getElementsByClassName('scroll-down')[0].style.display = "";
@@ -373,6 +373,22 @@
 
   <section class='meta'>
     
+      
+        
+
+  
+    <meting-js
+      mini='true'
+      volume='0.7'
+      loop='all'
+      order='list'
+      server='netease'
+      type='song'
+      id='413829859'>
+    </meting-js>
+  
+
+
       
       
       <div class="meta" id="header-meta">
@@ -434,8 +450,13 @@
         <div class="article-entry" itemprop="articleBody">
           
           
-          <p>欢迎来到我的博客^_^</p>
+          <div align="center">————欢迎来到我的博客~————</di
+
+
+
 <a id="more"></a>
+
+
 
 <img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/wallls.com_220462.jpg" alt="wallls.com_220462" style="zoom:50%;" />
 
@@ -513,10 +534,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-19T15:56:49+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-20T18:59:59+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 19, 2020</p>
+    <p>更新于：Jul 20, 2020</p>
   </a>
 </div>
 
@@ -540,7 +561,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://tetedetian2.github.io/2020/07/20/hello-world/&title=Hello World - 特特的天&summary=欢迎来到我的博客^_^"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://tetedetian2.github.io/2020/07/20/hello-world/&title=Hello World - 特特的天&summary=————欢迎来到我的博客~————"
           
           >
           
@@ -552,7 +573,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tetedetian2.github.io/2020/07/20/hello-world/&title=Hello World - 特特的天&summary=欢迎来到我的博客^_^"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tetedetian2.github.io/2020/07/20/hello-world/&title=Hello World - 特特的天&summary=————欢迎来到我的博客~————"
           
           >
           
@@ -564,7 +585,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://tetedetian2.github.io/2020/07/20/hello-world/&title=Hello World - 特特的天&summary=欢迎来到我的博客^_^"
+          href="http://service.weibo.com/share/share.php?url=https://tetedetian2.github.io/2020/07/20/hello-world/&title=Hello World - 特特的天&summary=————欢迎来到我的博客~————"
           
           >
           
@@ -588,8 +609,8 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/07/20/hexo%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>hexo使用注意点</p>
+              <a class='prev' href='/2020/07/20/Hexo%E5%8A%9F%E8%83%BD%E8%AE%BE%E7%BD%AE/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Hexo功能设置</p>
                 <p class='content'>这里有一些hexo功能的使用方法以及注意点（我踩过的坑…）
 如何给文章添加标签1.建立一个标签配置文件
 在博客文件夹下，执行下面的命令
@@ -661,7 +682,7 @@
   
     <meting-js
       theme='#1BCDFC'
-      autoplay='flase'
+      autoplay='false'
       volume='0.7'
       loop='all'
       order='list'

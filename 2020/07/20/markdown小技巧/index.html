@@ -320,7 +320,7 @@
   </div>
   
 
-  <div class="l_body">
+  <div class="l_body nocover">
     <div class='body-wrapper' id="pjax-container">
       
         <!--此文件用来存放一些不方便取值的变量-->
@@ -342,16 +342,16 @@
 
 <script>
   // 处理封面 此时 jquery 还没加载
-  if ("blog" == "none") { // 移除封面
+  if ("none" == "none") { // 移除封面
     document.getElementsByClassName('cover')[0].style.display = "none";
     document.getElementsByClassName('l_body')[0].classList.add("nocover");
     document.getElementsByClassName('l_header', 'cover-wrapper')[0].classList.add("show");
   } else {
-    if ("blog" == "blog") { // 半屏
+    if ("none" == "blog") { // 半屏
       document.getElementsByClassName('cover')[0].classList.remove("full");
       document.getElementsByClassName('cover')[0].classList.add("half");
       document.getElementsByClassName('scroll-down')[0].style.display = "none";
-    } else if ("blog" == "docs") { // 全屏
+    } else if ("none" == "docs") { // 全屏
       document.getElementsByClassName('cover')[0].classList.remove("half");
       document.getElementsByClassName('cover')[0].classList.add("full");
       document.getElementsByClassName('scroll-down')[0].style.display = "";
@@ -642,25 +642,20 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/07/20/MySQL%E7%AC%94%E8%AE%B0/'>
+              <a class='prev' href='/2020/07/20/MySQL%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/'>
                 <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>MySQL基础知识点</p>
-                <p class='content'>这里，有MySQL的一些基础知识点^_^
-
-
-——————目录在右下角噢——————
-
- 
+                <p class='content'>————这里，有MySQL的一些基础知识点^_^————
 
 
 
 
 
-前言注：此博客内容基于《MySQL必知必会》一书，下载链接：https://pan.baid...</p>
+前言注：此博客内容基于《MySQL必知必会》一书，下载链接：https://pan.baidu.com/s/1phUYbp98...</p>
               </a>
             
             
-              <a class='next' href='/2020/07/20/Linux%E7%AC%94%E8%AE%B0/'>
-                <p class='title'>Linux笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+              <a class='next' href='/2020/07/20/Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/'>
+                <p class='title'>Linux基础知识点<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
                 <p class='content'>这里，有我学习linux的一些笔记^_^
 
 
@@ -750,7 +745,7 @@ Linux的这些优势就是需要学习Li...</p>
   
     <meting-js
       theme='#1BCDFC'
-      autoplay='flase'
+      autoplay='false'
       volume='0.7'
       loop='all'
       order='list'
