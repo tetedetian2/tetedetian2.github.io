@@ -673,12 +673,101 @@
 <p><strong>（2）大约怎么进行拥塞控制</strong>：根据前面学的TCP数据传输原理，容易知道，可以通过控制发送方的发送窗口大小从而控制单位时间内发送出去的数据量，进行拥塞控制。简单来说，就是通过控制所有计算机的数据发送速率，减小网络负担。</p>
 <p><strong>（3）具体方法：</strong></p>
 <blockquote>
-<p><strong>1）慢开始算法</strong>：给每个发送方设定一个叫做拥塞窗口（cwnd）的变量，用于控制发送窗口大小。cwnd有一个门限：ssthresh（用来限制cwnd最大值）。一开始cwnd设置为1，ssthresh设置为16（1和16指报文段数目）。使用慢开始算法后，每经过一个<strong>传输轮次</strong>（例如，拥塞窗口 cwnd = 4，这时的往返时间 RTT 就是发送方连续发送 4 个报文段，并收到这 4 个报文段的确认，总共经历的时间。 ），拥塞窗口 cwnd 就加倍。 当 cwnd = ssthresh 后，开始使用拥塞避免算法。</p>
+<p><strong>1）慢开始算法</strong>：给每个发送方设定一个叫做拥塞窗口（cwnd）的变量，用于控制发送窗口大小。cwnd有一个门限：ssthresh（用来限制cwnd最大值）。一开始cwnd设置为1，ssthresh设置为16（1和16指报文段数目，）。使用慢开始算法后，每经过一个<strong>传输轮次</strong>（例如，拥塞窗口 cwnd = 4，这时的往返时间 RTT 就是发送方连续发送 4 个报文段，并收到这 4 个报文段的确认，总共经历的时间。 ），拥塞窗口 cwnd 就加倍。 当 cwnd = ssthresh 后，开始使用拥塞避免算法。</p>
 <p><strong>2）拥塞避免算法：</strong>  当 cwnd = ssthresh 后，让拥塞窗口 cwnd 缓慢地增大，每经过一个传输轮次就把 cwnd 加 1，而不是加倍，使cwnd 按线性规律缓慢增长。</p>
 <p><strong>3）当网络拥塞后</strong>：无论在慢开始阶段还是在拥塞避免阶段，只要发送方判断网络出现拥塞（其根据就是没有按时收到确认），就要把慢开始门限 ssthresh 设置为出现拥塞时的发送方窗口值的一半（但不能小于2）。然后把cwnd 重新设置为 1，执行慢开始算法。</p>
 <div align="center">示意图 </div>
 
-<img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/image-20200722124119656.png" alt="image-20200722124119656" style="zoom:50%;" /></blockquote>
+<img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/image-20200722124119656.png" alt="image-20200722124119656" style="zoom:50%;" />
+
+<p><strong>4）快重传：</strong> 接收方每收到一个失序的报文段后就立即重复发出3的确认。发送方只要一连收到三个重复确认就应当立即重传对方尚未收到的报文段。这样做可以让发送方及早知道有报文段没有到达接收方。比如A传12345，但是B只收到1245，收到4的时候B就开始回发3的重传确认。</p>
+<p><strong>5）快恢复：</strong> 当发送端收到连续三个重复的确认时，把慢开始门限 ssthresh 减半。但接下去不执行慢开始算法。由于能够连着接受3个确认，发送方会认为网络很可能没有发生拥塞，因此不执行慢开始算法，即拥塞窗口 cwnd 现在不设置为 1，而是设置为慢开始门限 ssthresh 减半后的数值，然后开始执行拥塞避免算法，使拥塞窗口缓慢地线性增大。 如下图</p>
+<img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/image-20200722135540845.png" alt="image-20200722135540845" style="zoom:50%;" />
+</blockquote>
+</blockquote>
+<h3 id="2-5-TCP-的连接建立-三次握手"><a href="#2-5-TCP-的连接建立-三次握手" class="headerlink" title="2.5 TCP 的连接建立:三次握手"></a>2.5 TCP 的连接建立:三次握手</h3><blockquote>
+<ul>
+<li><strong>过程</strong></li>
+</ul>
+<blockquote>
+<p><strong>1）</strong>A向B发送请求报文，报文的SYN=1，代表这是一个连接请求或连接接受报文。seq是序号这个报文的序号。</p>
+<p><strong>2）</strong>B收到后回发一个SYN=1，ACK=1，seq=y，ack=x+1的报文。其中ACK=1代表ack有效。seq是B发出的报文的序号，<code>ack=x+1</code>是B发出的确认号，也就是告诉A下次发序号是<code>x+1</code>的报文。</p>
+<p><strong>3）</strong>A收到B的确认报文后，向B发一个ACK=1，seq=x+1，ack=y+1的报文。seq=x+1是因为B给A发了ack=x+1的报文，A发出去的报文序号seq就要是x+1。</p>
+<p>（x,y都是随机的，数值不是重点，重点是每次两台计算机的互相响应）</p>
+</blockquote>
+<ul>
+<li><strong>为什么要有第三次握手？</strong></li>
+</ul>
+<blockquote>
+<p>两次握手不是已经可以证明能够通信了吗，第三次握手岂不是多此一举？</p>
+<p><strong>原因：</strong> 第三次握手是用来再次确认。加入没有第三次：假设A发了请求，但是请求的报文走了远路，报文还没到B。A觉得太久了，给B发了第二次请求，第二次请求走了近路，比第一次还快到达，然后AB进行了通信。但是一会后，第一次请求也到B了，B接受到请求，又给A发了确认，接着等待A的通信。但是因为A已经在接受过B的确认了，就会不理A的确认。这会B岂不是在干等了？会浪费资源</p>
+</blockquote>
+<ul>
+<li><strong>下图展示了三次握手的过程以及计算机状态</strong></li>
+</ul>
+<img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/image-20200722145411745.png" alt="image-20200722145411745" style="zoom:50%;" />
+
+<p>当两台计算机都是ESTAB—LISHED状态了，就进行数据传送</p>
+</blockquote>
+<h3 id="2-6-TCP-的连接释放-四次挥手"><a href="#2-6-TCP-的连接释放-四次挥手" class="headerlink" title="2.6 TCP 的连接释放 :四次挥手"></a>2.6 TCP 的连接释放 :四次挥手</h3><blockquote>
+<p>过程见下图：一共发送了四个报文</p>
+<blockquote>
+<p><strong>1)</strong>FIN = 1, seq = u：FIN代表要释放链接，告诉B要停止发送数据了。</p>
+<p><strong>2）</strong>ACK = 1, seq = v, ack= u <strong>+</strong> 1：B回应A,允许它断开链接。</p>
+<p><strong>3）</strong>FIN = 1, ACK = 1, seq = w, ack= u <strong>+</strong> 1：FIN代表要释放链接，告诉B要停止发送数据了。</p>
+<p><strong>4）</strong>ACK = 1, seq = u + 1, ack = w <strong>+</strong> 1：同理，A回应B。</p>
+</blockquote>
+<p><strong>为什么A最后需要等待一段时间（2MSL）？：</strong></p>
+<blockquote>
+<p>因为如果A发给B的确认，B没收到，B就会重新发送释放链接的报文（也就是第三个）。所以此时要是没有TIME-WAIT状态等待，而是直接关了，A就无法接到B的请求，也就不会回应，这样B的连接就释放不了了。</p>
+</blockquote>
+<img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/image-20200722163843224.png" alt="image-20200722163843224" style="zoom: 67%;" />
+</blockquote>
+<h1 id="第六章——应用层"><a href="#第六章——应用层" class="headerlink" title="第六章——应用层"></a>第六章——应用层</h1><h2 id="1-统一资源定位符-URL"><a href="#1-统一资源定位符-URL" class="headerlink" title="1.统一资源定位符 URL"></a>1.统一资源定位符 URL</h2><blockquote>
+<p><strong>怎样标志分布在整个因特网上的万维网文档？</strong></p>
+<p><strong>答案</strong>：使用统一资源定位符 URL (Uniform Resource Locator)来标志万维网上的各种文档。使每一个文档在整个因特网的范围内具有唯一的标识符 URL。 </p>
+<p><strong>URL 的一般形式 ：</strong><code>&lt;协议&gt;://&lt;主机&gt;:&lt;端口&gt;/&lt;路径&gt;</code></p>
+<blockquote>
+<p><strong>协议：</strong>ftp —— 文件传送协议 FTP、http —— 超文本传送协议 HTTP、News —— USENET 新闻</p>
+<p><strong>主机</strong>： 是存放资源的主机在因特网中的域名</p>
+<p><strong>端口和路径：</strong>经常省略</p>
+</blockquote>
+</blockquote>
+<h2 id="2-超文本传送协议-HTTP"><a href="#2-超文本传送协议-HTTP" class="headerlink" title="2.超文本传送协议 HTTP"></a>2.超文本传送协议 HTTP</h2><p>为了使超文本的链接能够高效率地完成，需要用 HTTP 协议来传送一切必须的信息</p>
+<h3 id="2-1-使用HTTP的URL格式"><a href="#2-1-使用HTTP的URL格式" class="headerlink" title="2.1 使用HTTP的URL格式"></a>2.1 使用HTTP的URL格式</h3><blockquote>
+<p>上面URL的格式<code>&lt;协议&gt;://&lt;主机&gt;:&lt;端口&gt;/&lt;路径&gt;</code>中的协议部分，就可以选择HTTP协议。格式如下：</p>
+<img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/image-20200723013130257.png" alt="image-20200723013130257" style="zoom: 67%;" />
+</blockquote>
+<h3 id="2-2HTTP-的报文结构-："><a href="#2-2HTTP-的报文结构-：" class="headerlink" title="2.2HTTP 的报文结构 ："></a>2.2HTTP 的报文结构 ：</h3><p>HTTP 有<strong>两类</strong>报文：请求报文——从客户向服务器发送请求报文、响应报文——从服务器到客户的回答。</p>
+<blockquote>
+<p><strong>（1）请求报文</strong></p>
+<blockquote>
+<p>报文格式：</p>
+<img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/image-20200723160136671.png" alt="image-20200723160136671" style="zoom:50%;" />
+
+<p><strong>方法</strong>：是面向对象技术中使用的专门名词。所谓“方法”就是对所请求的对象进行的操作，因此这些方法实际上也就是一些命令。因此，请求报文的类型是由它所采用的方法决定的。</p>
+<p><strong>URL</strong>：是所请求的资源的 URL。</p>
+<p><strong>版本</strong>：是 HTTP 的版本。</p>
+</blockquote>
+<p><strong>（2）响应报文</strong></p>
+<blockquote>
+<p>报文格式：</p>
+<img src="http://tetedetian.oss-cn-shenzhen.aliyuncs.com/img/image-20200723160917845.png" alt="image-20200723160917845" style="zoom:50%;" />
+
+<p><strong>状态码：</strong>状态码都是三位数字 ，1xx 表示通知信息的，如请求收到了或正在进行处理；2xx 表示成功，如接受或知道了；3xx 表示重定向，表示要完成请求还必须采取进一步的行动；4xx 表示客户的差错，如请求中有错误的语法或不能完成；5xx 表示服务器的差错，如服务器失效无法完成请求。</p>
+<p><strong>短语：</strong>解释状态码的简单短语</p>
+</blockquote>
+</blockquote>
+<h2 id="3-用户点击链接后所发生的事件"><a href="#3-用户点击链接后所发生的事件" class="headerlink" title="3.用户点击链接后所发生的事件"></a>3.用户点击链接后所发生的事件</h2><p>以在浏览器点击链接到百度的超链接为例</p>
+<blockquote>
+<p>(1) 浏览器分析超链指向页面的 URL。</p>
+<p>(2) 浏览器向 DNS 请求解析 <a href="http://www.baidu.com的" target="_blank" rel="noopener">www.baidu.com的</a> IP 地址。</p>
+<p>(3) 域名系统 DNS 解析出百度服务器的 IP 地址。</p>
+<p>(4) 浏览器与服务器建立 TCP 连接</p>
+<p>(5) 浏览器发出取文件命令： GET /chn/yxsz/index.htm。</p>
+<p>(6) 服务器给出响应，把文件 index.htm 发给浏览器。</p>
+<p>(7) TCP 连接释放。</p>
+<p>(8) 浏览器显示 index.htm 中的所有文本。</p>
 </blockquote>
 
           
@@ -753,10 +842,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-22T12:42:34+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-23T17:05:14+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 22, 2020</p>
+    <p>更新于：Jul 23, 2020</p>
   </a>
 </div>
 
@@ -837,6 +926,11 @@
         
           <div class="prev-next">
             
+              <a class='prev' href='/2020/07/23/c++%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>c++工程师面试常见问题</p>
+                <p class='content'></p>
+              </a>
+            
             
               <a class='next' href='/2020/07/20/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B9%8B%E2%80%94%E2%80%94%5Bhexo+github%5D/'>
                 <p class='title'>搭建博客之——[hexo+github]<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
@@ -899,7 +993,7 @@ hexo 实际上可以看做一个程序，是用来生成博客页面  比如主�
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章——计算机网络概述"><span class="toc-text">第一章——计算机网络概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-计算机网络性能"><span class="toc-text">1.计算机网络性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-计算机网络体系结构"><span class="toc-text">2.计算机网络体系结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-OSI的7层大约作用"><span class="toc-text">3.OSI的7层大约作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-分层的好处："><span class="toc-text">3.1 分层的好处：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-OSI七层模型及其包含的协议如下"><span class="toc-text">3.2 OSI七层模型及其包含的协议如下:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3TCP-IP-4层模型包括："><span class="toc-text">3.3TCP&#x2F;IP 4层模型包括：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章——物理层"><span class="toc-text">第二章——物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-基本概念"><span class="toc-text">1.基本概念</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章——数据链路层"><span class="toc-text">第三章——数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-数据链路层基本概念与三个基本问题"><span class="toc-text">1.数据链路层基本概念与三个基本问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1基本概念"><span class="toc-text">1.1基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2三个基本问题"><span class="toc-text">1.2三个基本问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-两种情况下的数据链路层"><span class="toc-text">2.两种情况下的数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1使用点对点信道的数据链路层（用PPP）"><span class="toc-text">2.1使用点对点信道的数据链路层（用PPP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2使用广播信道的数据链路层（用CSMA-CD）"><span class="toc-text">2.2使用广播信道的数据链路层（用CSMA&#x2F;CD）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-虚拟局域网-（VLAN）"><span class="toc-text">3.虚拟局域网 （VLAN）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第四章——网络层"><span class="toc-text">第四章——网络层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-网络层提供的两种服务"><span class="toc-text">1.网络层提供的两种服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-虚拟互联网"><span class="toc-text">2.虚拟互联网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-ip"><span class="toc-text">3.ip</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-ip协议及配套使用协议"><span class="toc-text">3.1 ip协议及配套使用协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-ip地址分类"><span class="toc-text">3.2 ip地址分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3子网掩码"><span class="toc-text">3.3子网掩码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-ip和MAC"><span class="toc-text">4.ip和MAC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-路由选择协议"><span class="toc-text">5.路由选择协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第五章——传输层"><span class="toc-text">第五章——传输层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-用户数据报协议-UDP-User-Datagram-Protocol"><span class="toc-text">1.用户数据报协议 UDP (User Datagram Protocol)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1特点："><span class="toc-text">1.1特点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2报文格式"><span class="toc-text">1.2报文格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-传输控制协议-TCP-Transmission-Control-Protocol"><span class="toc-text">2.传输控制协议 TCP (Transmission Control Protocol)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-特点："><span class="toc-text">2.1 特点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-TCP-报文段的首部格式"><span class="toc-text">2.2 TCP 报文段的首部格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-如何实现可靠传输"><span class="toc-text">2.3 如何实现可靠传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-拥塞控制"><span class="toc-text">2.4 拥塞控制</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章——计算机网络概述"><span class="toc-text">第一章——计算机网络概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-计算机网络性能"><span class="toc-text">1.计算机网络性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-计算机网络体系结构"><span class="toc-text">2.计算机网络体系结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-OSI的7层大约作用"><span class="toc-text">3.OSI的7层大约作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-分层的好处："><span class="toc-text">3.1 分层的好处：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-OSI七层模型及其包含的协议如下"><span class="toc-text">3.2 OSI七层模型及其包含的协议如下:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3TCP-IP-4层模型包括："><span class="toc-text">3.3TCP&#x2F;IP 4层模型包括：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章——物理层"><span class="toc-text">第二章——物理层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-基本概念"><span class="toc-text">1.基本概念</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章——数据链路层"><span class="toc-text">第三章——数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-数据链路层基本概念与三个基本问题"><span class="toc-text">1.数据链路层基本概念与三个基本问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1基本概念"><span class="toc-text">1.1基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2三个基本问题"><span class="toc-text">1.2三个基本问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-两种情况下的数据链路层"><span class="toc-text">2.两种情况下的数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1使用点对点信道的数据链路层（用PPP）"><span class="toc-text">2.1使用点对点信道的数据链路层（用PPP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2使用广播信道的数据链路层（用CSMA-CD）"><span class="toc-text">2.2使用广播信道的数据链路层（用CSMA&#x2F;CD）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-虚拟局域网-（VLAN）"><span class="toc-text">3.虚拟局域网 （VLAN）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第四章——网络层"><span class="toc-text">第四章——网络层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-网络层提供的两种服务"><span class="toc-text">1.网络层提供的两种服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-虚拟互联网"><span class="toc-text">2.虚拟互联网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-ip"><span class="toc-text">3.ip</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-ip协议及配套使用协议"><span class="toc-text">3.1 ip协议及配套使用协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-ip地址分类"><span class="toc-text">3.2 ip地址分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3子网掩码"><span class="toc-text">3.3子网掩码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-ip和MAC"><span class="toc-text">4.ip和MAC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-路由选择协议"><span class="toc-text">5.路由选择协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第五章——传输层"><span class="toc-text">第五章——传输层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-用户数据报协议-UDP-User-Datagram-Protocol"><span class="toc-text">1.用户数据报协议 UDP (User Datagram Protocol)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1特点："><span class="toc-text">1.1特点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2报文格式"><span class="toc-text">1.2报文格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-传输控制协议-TCP-Transmission-Control-Protocol"><span class="toc-text">2.传输控制协议 TCP (Transmission Control Protocol)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-特点："><span class="toc-text">2.1 特点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-TCP-报文段的首部格式"><span class="toc-text">2.2 TCP 报文段的首部格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-如何实现可靠传输"><span class="toc-text">2.3 如何实现可靠传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-拥塞控制"><span class="toc-text">2.4 拥塞控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-TCP-的连接建立-三次握手"><span class="toc-text">2.5 TCP 的连接建立:三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-TCP-的连接释放-四次挥手"><span class="toc-text">2.6 TCP 的连接释放 :四次挥手</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第六章——应用层"><span class="toc-text">第六章——应用层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-统一资源定位符-URL"><span class="toc-text">1.统一资源定位符 URL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-超文本传送协议-HTTP"><span class="toc-text">2.超文本传送协议 HTTP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-使用HTTP的URL格式"><span class="toc-text">2.1 使用HTTP的URL格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2HTTP-的报文结构-："><span class="toc-text">2.2HTTP 的报文结构 ：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-用户点击链接后所发生的事件"><span class="toc-text">3.用户点击链接后所发生的事件</span></a></li></ol></li></ol>
     </div>
   </section>
 
