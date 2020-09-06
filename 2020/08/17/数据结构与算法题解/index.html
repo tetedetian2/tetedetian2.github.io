@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,9 +16,11 @@
 
   <!-- 页面元数据 -->
   
-  <title>Tag: 计算机网络（更新中） - 特特的天</title>
+  <title>数据结构与算法题解 - 特特的天</title>
   
 
+  
+    <meta name="description" content="——这记录了一些leetcode的高频考题以及题解，还有一些我对答案额外的解释——">
   
 
   <!-- feed -->
@@ -68,7 +68,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class='cover ' style="display: none;">
+    <cover class='cover post' style="display: none;">
       <div class='cover-body'>
   <div class='a'>
     
@@ -327,9 +327,12 @@
 
 
 <div id="pjax-data" style="display: none">
-  <div id="pjax-ispage">false</div>
-  <div id="pjax-pageTitle"></div>
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">数据结构与算法题解</div>
   <div id="pjax-enable-cover">true</div>
+  
+  <div id="valine-path">none</div>
+  <div id="valine-placeholder">none</div>
   
   
 </div>
@@ -360,19 +363,12 @@
       
       
 
-
 <div class='l_main'>
   
-    
-      
-  <section class="post-list ">
-    
-      
-        
-          
-            <div class='post-wrapper'>
-              <article class="post white-box shadow reveal ">
+
   
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -382,11 +378,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
-    <a href="/2020/07/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/">
-      计算机网络基础知识点
+  <h1 class="title">
+    <a href="/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">
+      数据结构与算法题解
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -414,27 +410,9 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Jul 20, 2020</p>
+    <p>发布于：Aug 17, 2020</p>
   </a>
 </div>
-
-            
-          
-            
-              
-  <div class="new-meta-item wordcount">
-    <a class='notlink'>
-      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>6.4k words</p>
-    </a>
-  </div>
-  <div class="new-meta-item readtime">
-    <a class='notlink'>
-      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>23 min</p>
-    </a>
-  </div>
-
 
             
           
@@ -444,7 +422,7 @@
     <a class='notlink'>
       <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
       
-      <span id="/2020/07/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/" class="leancloud_visitors" data-flag-title="计算机网络基础知识点">
+      <span id="/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/" class="leancloud_visitors" data-flag-title="数据结构与算法题解">
       <p>
         <span class="leancloud-visitors-count"></span>
       </p>
@@ -459,9 +437,9 @@
               
 <div class="new-meta-item comments-count">
   
-  <a href="/2020/07/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/#comments">
+  <a href="/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/#comments">
     <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/2020/07/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/">0</span>
+    <span class="valine-comment-count" data-xid="/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">0</span>
     <span class="leancloud-comments-count">&nbsp;</span>
   </a>
 </div>
@@ -471,13 +449,6 @@
           
             
               
-  <div class="new-meta-item top-post">
-    <a class='notlink'>
-      <i class="fas fa-angle-double-up fa-fw" aria-hidden="true"></i>
-      <p>Top</p>
-    </a>
-  </div>
-
 
             
           
@@ -490,110 +461,75 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div align="center">————这里，有一些计算机网络的基础知识，希望对你有帮助^_^————</div>
-
-<div align="center">————（针对c++后台开发）————</div>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/07/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-            </div>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
           
-        
-      
-    
-    
-      
-        
-      
-    
-  </section>
+          
+          <div align="center">——这记录了一些leetcode的高频考题以及题解，还有一些我对答案额外的解释——</div>
+
+
+
+<a id="more"></a>
+
+
+
+<h1 id="一、字符串"><a href="#一、字符串" class="headerlink" title="一、字符串"></a>一、字符串</h1><h2 id="1-无重复字符的最长字符串"><a href="#1-无重复字符的最长字符串" class="headerlink" title="1.无重复字符的最长字符串"></a>1.无重复字符的最长字符串</h2><p><strong>题目：</strong>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<p>示例 :</p>
+<blockquote>
+<p>输入: “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
+</blockquote>
+<p><strong>解题思路：</strong></p>
+<p>因为这是求最长子串的长度，自然子串的左端是字符串的其中一个字符，那我们不妨从第一个字符开始判断。</p>
+<blockquote>
+<p>1.定义两个变量，记录子串的左端点和右端点，右端点不断往右移动，直到遇到与左右端点之间重复的字符为止。</p>
+<p>2.用一变量num记录下两端点之间不重复的字符串长度（其实就是用右变量减左变量）</p>
+<p>3.将左端点向右移动一个字符，右端点保持不动，然后又开始判断左右端点间有没有重复，重复就右移，和上面的一样，最后更新num。</p>
+</blockquote>
+<p><strong>题解：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//哈希集合，存放字符，记录每个字符是否出现过</span></span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="keyword">char</span>&gt; occ;</span><br><span class="line">        <span class="comment">//right记录右端点，设置初始值是0；num是记录最长子串长度的变量</span></span><br><span class="line">        <span class="keyword">int</span> right=<span class="number">0</span>,num=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i!=<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//左端点向右移动一格（也就是i加1），从哈希集合里移除s[i-1]（因为现在s[i-1]已经不在左右端点之间了）</span></span><br><span class="line">                occ.erase(s[i<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/*!occ.count(s[right])如果是0，代表哈希集合里面有s[right]，则while&#123;&#125;里的代码不会运行，也就是不会往			  里面添加字符。*/</span></span><br><span class="line">             <span class="keyword">while</span> (right&lt;s.<span class="built_in">size</span>()&amp;&amp; !occ.count(s[right]))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//右指针往右移动了，往哈希集合里添加一个字符</span></span><br><span class="line">                occ.insert(s[right]);</span><br><span class="line">                <span class="comment">//右端点加1</span></span><br><span class="line">                ++right;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//更新num</span></span><br><span class="line">            num=<span class="built_in">max</span>(num,right-i);<span class="comment">//num是前面所有子串中最大值，right是此次左右端点之间的差，也就是此次子串长度</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h2>
+          
+            <div class='article_footer'>
+              
+                
   
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
     
     
 
-  
 
 
-    
   
-</div>
-<aside class='l_side'>
-  
+
   
     
     
 
-<section class="widget blogger shadow desktop mobile">
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://tetedetian.oss-cn-shenzhen.aliyuncs.com/%E8%B7%AF%E9%A3%9E.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">特特的天</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
           
-            <a href="mailto:me@xaoxuu.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>本文永久链接是：<a href=https://tetedetian2.github.io/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/>https://tetedetian2.github.io/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/</a></p>
           
         
-          
-            <a href="https://github.com/xaoxuu"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=63035382"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -604,29 +540,166 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-08-23T18:16:47+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Aug 23, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://tetedetian2.github.io/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/&title=数据结构与算法题解 - 特特的天&summary=——这记录了一些leetcode的高频考题以及题解，还有一些我对答案额外的解释——"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tetedetian2.github.io/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/&title=数据结构与算法题解 - 特特的天&summary=——这记录了一些leetcode的高频考题以及题解，还有一些我对答案额外的解释——"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://tetedetian2.github.io/2020/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/&title=数据结构与算法题解 - 特特的天&summary=——这记录了一些leetcode的高频考题以及题解，还有一些我对答案额外的解释——"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/2020/08/17/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/'>
+                <p class='title'>操作系统基本知识点<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>前言操作系统是什么：
+操作系统（Operating System， OS） 是指控制和管理整个计算机系统的硬件和软件资源， 并合理地组织调度计算机的工作和资源的分配； 以提供给用户和其他软件方便...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      <section id="comments">
+        <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+      </section>
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow desktop mobile">
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/c/" style="font-size: 14px; color: #999">c++</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%BF%90%E8%90%A5/" style="font-size: 24px; color: #555">博客搭建与运营</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">操作系统</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89/" style="font-size: 14px; color: #999">计算机网络（更新中）</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 14px; color: #999">面试</a>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、字符串"><span class="toc-text">一、字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-无重复字符的最长字符串"><span class="toc-text">1.无重复字符的最长字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2"><span class="toc-text">2.</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
 
   
 
